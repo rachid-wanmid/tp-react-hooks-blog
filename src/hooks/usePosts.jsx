@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 // TODO: Exercice 2 - Importer useDebounce
+import useDebounce from './useDebounce';
 
 /**
  * Hook personnalisé pour gérer les posts du blog
@@ -23,12 +24,13 @@ function usePosts({ searchTerm = '', tag = '', limit = 10, infinite = true } = {
   // TODO: Exercice 4 - Ajouter l'état pour le post sélectionné
 
   // TODO: Exercice 2 - Utiliser useDebounce pour le terme de recherche
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   // TODO: Exercice 3 - Utiliser useCallback pour construire l'URL de l'API
   const buildApiUrl = (currentSkip = 0) => {
     // Construire l'URL en fonction des filtres
-    if (searchTerm) {
-      return `https://dummyjson.com/posts/search?q=${encodeURIComponent(searchTerm)}&limit=${limit}&skip=${currentSkip}`;
+    if (debouncedSearchTerm) {
+      return `https://dummyjson.com/posts/search?q=${encodeURIComponent(debouncedSearchTerm)}&limit=${limit}&skip=${currentSkip}`;
     }
     if (tag) {
       return `https://dummyjson.com/posts/tag/${encodeURIComponent(tag)}?limit=${limit}&skip=${currentSkip}`;
@@ -61,7 +63,7 @@ function usePosts({ searchTerm = '', tag = '', limit = 10, infinite = true } = {
   useEffect(() => {
     fetchPosts(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm, tag, limit]);
+  }, [debouncedSearchTerm, tag, limit]);
 
   // TODO: Exercice 4 - Implémenter la fonction pour charger plus de posts
 

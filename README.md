@@ -86,7 +86,25 @@ Difficultés rencontrées :
 
 _Votre réponse pour l'exercice 2 :_
 ```
-Expliquez votre solution ici
+Solution :
+- useDebounce : attend un délai (500ms) après la dernière frappe avant de
+  mettre à jour la valeur retournée, pour éviter d'appeler l'API à chaque
+  caractère tapé.
+- useLocalStorage : fonctionne comme useState, mais lit la valeur initiale
+  depuis localStorage et la réécrit à chaque changement, pour garder la
+  préférence même après un rechargement de page.
+
+Exemple : usePosts utilise useDebounce(searchTerm, 500), donc si on tape
+"love" rapidement, l'API n'est appelée qu'une fois, 500ms après la dernière
+lettre tapée. App.jsx utilise useLocalStorage pour retenir le choix
+"défilement infini" même si on recharge la page.
+
+Difficultés rencontrées :
+- Bien annuler (clearTimeout) le timeout précédent dans useDebounce, sinon
+  plusieurs mises à jour inutiles s'accumulent.
+- localStorage peut échouer (navigation privée) → accès entourés d'un
+  try/catch.
+
 [Ajoutez vos captures d'écran]
 ```
 
