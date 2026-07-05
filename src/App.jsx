@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
 import PostList from './components/PostList';
 import PostSearch from './components/PostSearch';
 // TODO: Exercice 3 - Importer ThemeToggle
+import ThemeToggle from './components/ThemeToggle';
 // TODO: Exercice 3 - Importer ThemeProvider et useTheme
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 // TODO: Exercice 1 - Importer le hook usePosts
 import usePosts from './hooks/usePosts';
 // TODO: Exercice 2 - Importer le hook useLocalStorage
 import useLocalStorage from './hooks/useLocalStorage';
 
-function App() {
+function AppContent() {
+  const { theme } = useTheme();
+
   // État local pour la recherche
   const [searchTerm, setSearchTerm] = useState('');
   // TODO: Exercice 4 - Ajouter l'état pour le tag sélectionné
@@ -23,18 +27,19 @@ function App() {
 
   // TODO: Exercice 3 - Utiliser useCallback pour les gestionnaires d'événements
   // Gestionnaire pour la recherche
-  const handleSearchChange = (term) => {
+  const handleSearchChange = useCallback((term) => {
     setSearchTerm(term);
-  };
+  }, []);
 
   // TODO: Exercice 4 - Ajouter le gestionnaire pour la sélection de tag
 
   return (
-    <div className="container py-4">
+    <div className="container py-4" data-theme={theme}>
       <header className="pb-3 mb-4 border-bottom">
         <div className="d-flex justify-content-between align-items-center">
           <h1 className="display-5 fw-bold">Blog</h1>
           {/* TODO: Exercice 3 - Ajouter le ThemeToggle */}
+          <ThemeToggle />
         </div>
       </header>
 
@@ -66,6 +71,7 @@ function App() {
           loading={loading}
           hasMore={hasMore}
           onLoadMore={loadMore}
+          infiniteScroll={infiniteScroll}
         />
       </main>
 
@@ -75,6 +81,14 @@ function App() {
         </p>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

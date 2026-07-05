@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 // TODO: Exercice 3 - Importer useTheme
+import { useTheme } from '../context/ThemeContext';
 // TODO: Exercice 4 - Importer useIntersectionObserver
 import LoadingSpinner from './LoadingSpinner';
 
@@ -24,22 +25,24 @@ function PostList({
   infiniteScroll = true
 }) {
   // TODO: Exercice 3 - Utiliser le hook useTheme
+  const { theme } = useTheme();
+  const cardThemeClass = theme === 'dark' ? 'bg-dark text-light border-secondary' : '';
 
   // TODO: Exercice 4 - Utiliser useIntersectionObserver pour le défilement infini
 
   // TODO: Exercice 3 - Utiliser useCallback pour les gestionnaires d'événements
-  const handlePostClick = (post) => {
+  const handlePostClick = useCallback((post) => {
     if (onPostClick) {
       onPostClick(post);
     }
-  };
+  }, [onPostClick]);
 
-  const handleTagClick = (e, tag) => {
+  const handleTagClick = useCallback((e, tag) => {
     e.stopPropagation(); // Éviter de déclencher le clic sur le post
     if (onTagClick) {
       onTagClick(tag);
     }
-  };
+  }, [onTagClick]);
 
   // TODO: Exercice 1 - Gérer le cas où il n'y a pas de posts
   if (!loading && posts.length === 0) {
@@ -57,7 +60,7 @@ function PostList({
         {posts.map((post) => (
           <div className="col" key={post.id}>
             <div
-              className="card h-100"
+              className={`card h-100 ${cardThemeClass}`}
               role="button"
               onClick={() => handlePostClick(post)}
             >
@@ -105,4 +108,4 @@ function PostList({
 }
 
 // TODO: Exercice 3 - Utiliser React.memo pour optimiser les rendus
-export default PostList;
+export default React.memo(PostList);

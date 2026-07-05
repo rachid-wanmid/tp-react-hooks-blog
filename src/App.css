@@ -55,3 +55,12 @@ body,
 }
 
 /* TODO: Exercice 3 - Ajouter des styles spécifiques au mode sombre */
+[data-theme="dark"] {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}

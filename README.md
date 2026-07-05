@@ -118,7 +118,28 @@ Difficultés rencontrées :
 
 _Votre réponse pour l'exercice 3 :_
 ```
-Expliquez votre solution ici
+Solution :
+- ThemeContext : garde le thème ("light"/"dark") dans useLocalStorage pour
+  qu'il soit retenu après rechargement, et fournit toggleTheme() via
+  useTheme() pour basculer.
+- ThemeToggle : bouton qui affiche "Mode sombre"/"Mode clair" et appelle
+  toggleTheme au clic.
+- Optimisation : PostList et PostSearch utilisent useCallback pour leurs
+  gestionnaires (évite de recréer les fonctions à chaque rendu) et sont
+  exportés avec React.memo (évite un re-render si les props n'ont pas
+  changé). Dans usePosts, buildApiUrl est mémorisée avec useCallback et les
+  tags uniques sont calculés avec useMemo (recalcul seulement si posts
+  change).
+
+Exemple : au clic sur ThemeToggle, le thème passe de "light" à "dark",
+ThemeContext le sauvegarde dans localStorage, et App.jsx applique
+data-theme="dark" sur le conteneur → le CSS (App.css) change le fond en
+sombre et les cartes de PostList passent en bg-dark.
+
+Difficultés rencontrées :
+- Bien mettre useTheme() dans un composant enfant du ThemeProvider (créé un
+  composant AppContent séparé de App pour que useTheme fonctionne).
+
 [Ajoutez vos captures d'écran]
 ```
 
