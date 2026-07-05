@@ -153,7 +153,37 @@ Difficultés rencontrées :
 
 _Votre réponse pour l'exercice 4 :_
 ```
-Expliquez votre solution ici
+Solution :
+- useIntersectionObserver : observe un élément (une petite div "sentinelle")
+  et retourne [ref, isIntersecting]. Dans PostList, cette sentinelle est
+  placée en bas de la liste ; quand elle devient visible (isIntersecting),
+  un useEffect appelle onLoadMore pour charger la page suivante.
+- PostDetails : affiche le contenu complet d'un post (body, auteur,
+  réactions, tags cliquables) en popup superposé (fond sombre + carte
+  centrée), avec un bouton ou un clic à l'extérieur pour fermer.
+- Sélection d'un post : usePosts expose selectedPost/selectPost/
+  clearSelectedPost. Un clic sur une carte dans PostList appelle
+  selectPost(post.id), qui fait GET /posts/{id} et affiche PostDetails.
+- Filtrage par tags : usePosts calcule availableTags (déjà fait en ex3), et
+  App.jsx garde un état selectedTag passé à usePosts({ tag: selectedTag }).
+  Le sélecteur de tags dans PostSearch et les badges cliquables dans
+  PostList/PostDetails appellent tous le même handler handleTagSelect.
+
+Exemple : on clique sur un post → ses détails s'affichent en popup avec ses
+tags. On clique sur le tag "history" → selectedTag devient "history",
+usePosts recharge via /posts/tag/history, et PostSearch affiche "history"
+comme sélectionné dans le menu déroulant.
+
+Difficultés rencontrées :
+- Éviter de déclencher onLoadMore en boucle : le useEffect ne se relance que
+  si isIntersecting ou onLoadMore changent, et l'observer n'est actif que si
+  infiniteScroll est activé et qu'il reste des posts (hasMore).
+- Faire en sorte qu'un même clic sur un tag fonctionne à la fois depuis la
+  liste et depuis les détails : un seul handler (handleTagSelect) est
+  réutilisé partout.
+- Le mode sombre ne couvrait au départ que le conteneur central → complété
+  en appliquant aussi data-theme sur document.body (dans ThemeContext).
+
 [Ajoutez vos captures d'écran]
 ```
 

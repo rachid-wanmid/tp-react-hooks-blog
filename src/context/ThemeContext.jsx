@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 // TODO: Exercice 2 - Importer useLocalStorage
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -13,6 +13,11 @@ const ThemeContext = createContext();
 export function ThemeProvider({ children }) {
   // TODO: Exercice 3 - Utiliser useLocalStorage pour persister le thème
   const [theme, setTheme] = useLocalStorage('blog:theme', 'light');
+
+  // Appliquer le thème sur <body> pour que le fond couvre toute la page
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // TODO: Exercice 3 - Ajouter la fonction pour basculer entre les thèmes
   const toggleTheme = () => {

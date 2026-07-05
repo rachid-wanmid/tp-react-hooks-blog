@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './App.css';
 import PostList from './components/PostList';
 import PostSearch from './components/PostSearch';
+import PostDetails from './components/PostDetails';
 // TODO: Exercice 3 - Importer ThemeToggle
 import ThemeToggle from './components/ThemeToggle';
 // TODO: Exercice 3 - Importer ThemeProvider et useTheme
@@ -17,13 +18,24 @@ function AppContent() {
   // État local pour la recherche
   const [searchTerm, setSearchTerm] = useState('');
   // TODO: Exercice 4 - Ajouter l'état pour le tag sélectionné
+  const [selectedTag, setSelectedTag] = useState('');
 
   // TODO: Exercice 2 - Utiliser useLocalStorage pour le mode de défilement
   const [infiniteScroll, setInfiniteScroll] = useLocalStorage('blog:infiniteScroll', true);
 
   // TODO: Exercice 1 - Utiliser le hook usePosts pour récupérer les posts
   // Exemple: const { posts, loading, error } = usePosts();
-  const { posts, loading, error, hasMore, loadMore } = usePosts({ searchTerm, infinite: infiniteScroll });
+  const {
+    posts,
+    loading,
+    error,
+    hasMore,
+    loadMore,
+    availableTags,
+    selectedPost,
+    selectPost,
+    clearSelectedPost,
+  } = usePosts({ searchTerm, tag: selectedTag, infinite: infiniteScroll });
 
   // TODO: Exercice 3 - Utiliser useCallback pour les gestionnaires d'événements
   // Gestionnaire pour la recherche
@@ -32,6 +44,9 @@ function AppContent() {
   }, []);
 
   // TODO: Exercice 4 - Ajouter le gestionnaire pour la sélection de tag
+  const handleTagSelect = useCallback((tag) => {
+    setSelectedTag((prev) => (prev === tag ? '' : tag));
+  }, []);
 
   return (
     <div className="container py-4" data-theme={theme}>
@@ -44,7 +59,12 @@ function AppContent() {
       </header>
 
       <main>
-        <PostSearch onSearch={handleSearchChange} />
+        <PostSearch
+          onSearch={handleSearchChange}
+          onTagSelect={handleTagSelect}
+          availableTags={availableTags}
+          selectedTag={selectedTag}
+        />
 
         <div className="form-check form-switch mb-3">
           <input
@@ -64,6 +84,13 @@ function AppContent() {
         {error && <div className="alert alert-danger">{error}</div>}
 
         {/* TODO: Exercice 4 - Ajouter le composant PostDetails */}
+        {selectedPost && (
+          <PostDetails
+            post={selectedPost}
+            onClose={clearSelectedPost}
+            onTagClick={handleTagSelect}
+          />
+        )}
 
         {/* TODO: Exercice 1 - Passer les props nécessaires à PostList */}
         <PostList
@@ -71,6 +98,8 @@ function AppContent() {
           loading={loading}
           hasMore={hasMore}
           onLoadMore={loadMore}
+          onPostClick={(post) => selectPost(post.id)}
+          onTagClick={handleTagSelect}
           infiniteScroll={infiniteScroll}
         />
       </main>
