@@ -5,12 +5,14 @@ Ce TP a pour objectif de mettre en pratique l'utilisation des Hooks React (useSt
 ## Installation et configuration initiale
 
 1. Cloner le dépôt :
+
 ```bash
 git clone https://github.com/pr-daaif/tp-react-hooks-blog.git
 cd tp-react-hooks-blog
 ```
 
 2. Créer votre propre dépôt sur Github et changer le remote :
+
 ```bash
 # Supprimer le remote origine
 git remote remove origin
@@ -23,11 +25,13 @@ git push -u origin main
 ```
 
 3. Installer les dépendances :
+
 ```bash
 npm install
 ```
 
 4. Lancer l'application :
+
 ```bash
 npm start
 ```
@@ -35,6 +39,7 @@ npm start
 ## Instructions pour le TP
 
 Pour chaque exercice :
+
 1. Lisez attentivement l'énoncé
 2. Implémentez la solution
 3. Testez votre implémentation (pensez à faire des copies d'écran)
@@ -44,15 +49,17 @@ Pour chaque exercice :
    - Les difficultés rencontrées et comment vous les avez résolues
 5. Commitez vos changements avec un message descriptif
 
-### Exercice 1 : État et Effets 
+### Exercice 1 : État et Effets
+
 #### Objectif : Implémenter l'affichage et la recherche de posts
 
-- [ ] 1.1 Compléter le hook `usePosts` pour récupérer les posts depuis l'API dummyjson.com
-- [ ] 1.2 Implémenter le composant `PostList` pour afficher les posts
-- [ ] 1.3 Ajouter la fonctionnalité de recherche par titre ou contenu dans `PostSearch`
-- [ ] 1.4 Documenter votre solution ici
+- [x] 1.1 Compléter le hook `usePosts` pour récupérer les posts depuis l'API dummyjson.com
+- [x] 1.2 Implémenter le composant `PostList` pour afficher les posts
+- [x] 1.3 Ajouter la fonctionnalité de recherche par titre ou contenu dans `PostSearch`
+- [x] 1.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 1 :_
+
 ```
 Solution :
 - usePosts : construit l'URL de l'API selon le filtre (recherche, tag, ou
@@ -64,7 +71,7 @@ Solution :
 - PostSearch : champ de recherche qui envoie sa valeur au parent à chaque
   frappe, avec un bouton pour l'effacer.
 
-Exemple : si on tape "love" dans la recherche, usePosts appelle
+Exemple : si on tape "love" dans la re cherche, usePosts appelle
 https://dummyjson.com/posts/search?q=love et PostList affiche seulement
 les posts qui contiennent "love".
 
@@ -78,14 +85,16 @@ Difficultés rencontrées :
 ```
 
 ### Exercice 2 : Hooks Personnalisés
+
 #### Objectif : Créer des hooks réutilisables
 
-- [ ] 2.1 Créer le hook `useDebounce` pour optimiser la recherche
-- [ ] 2.2 Créer le hook `useLocalStorage` pour persister les préférences utilisateur
-- [ ] 2.3 Utiliser ces hooks dans l'application
-- [ ] 2.4 Documenter votre solution ici
+- [x] 2.1 Créer le hook `useDebounce` pour optimiser la recherche
+- [x] 2.2 Créer le hook `useLocalStorage` pour persister les préférences utilisateur
+- [x] 2.3 Utiliser ces hooks dans l'application
+- [x] 2.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 2 :_
+
 ```
 Solution :
 - useDebounce : attend un délai (500ms) après la dernière frappe avant de
@@ -111,14 +120,16 @@ Difficultés rencontrées :
 ```
 
 ### Exercice 3 : Optimisation et Context
+
 #### Objectif : Gérer le thème global et optimiser les rendus
 
-- [ ] 3.1 Créer le `ThemeContext` pour gérer le thème clair/sombre
-- [ ] 3.2 Implémenter le composant `ThemeToggle`
-- [ ] 3.3 Utiliser `useCallback` et `useMemo` pour optimiser les performances
-- [ ] 3.4 Documenter votre solution ici
+- [x] 3.1 Créer le `ThemeContext` pour gérer le thème clair/sombre
+- [x] 3.2 Implémenter le composant `ThemeToggle`
+- [x] 3.3 Utiliser `useCallback` et `useMemo` pour optimiser les performances
+- [x] 3.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 3 :_
+
 ```
 Solution :
 - ThemeContext : garde le thème ("light"/"dark") dans useLocalStorage pour
@@ -147,6 +158,7 @@ Difficultés rencontrées :
 ```
 
 ### Exercice 4 : Fonctionnalités avancées
+
 #### Objectif : Ajouter des fonctionnalités de chargement et détail
 
 - [ ] 4.1 Implémenter le chargement infini des posts avec `useIntersectionObserver`
@@ -155,6 +167,7 @@ Difficultés rencontrées :
 - [ ] 4.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 4 :_
+
 ```
 Solution :
 - useIntersectionObserver : observe un élément (une petite div "sentinelle")
@@ -242,17 +255,20 @@ Pour réaliser ce TP, vous utiliserez l'API dummyjson.com qui fournit des donné
 ## Points d'entrée API
 
 ### Récupérer tous les posts
+
 ```
 GET https://dummyjson.com/posts
 ```
 
 Paramètres de requête optionnels :
+
 - `limit` : nombre de posts à récupérer (défaut: 30)
 - `skip` : nombre de posts à sauter (pour la pagination)
 
 Exemple : `https://dummyjson.com/posts?limit=10&skip=10`
 
 ### Récupérer un post spécifique
+
 ```
 GET https://dummyjson.com/posts/{id}
 ```
@@ -260,6 +276,7 @@ GET https://dummyjson.com/posts/{id}
 Exemple : `https://dummyjson.com/posts/1`
 
 ### Rechercher des posts
+
 ```
 GET https://dummyjson.com/posts/search?q={terme}
 ```
@@ -267,6 +284,7 @@ GET https://dummyjson.com/posts/search?q={terme}
 Exemple : `https://dummyjson.com/posts/search?q=love`
 
 ### Récupérer les posts par tag
+
 ```
 GET https://dummyjson.com/posts/tag/{tag}
 ```
