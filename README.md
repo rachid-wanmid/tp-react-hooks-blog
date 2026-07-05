@@ -54,7 +54,25 @@ Pour chaque exercice :
 
 _Votre réponse pour l'exercice 1 :_
 ```
-Expliquez votre solution ici
+Solution :
+- usePosts : construit l'URL de l'API selon le filtre (recherche, tag, ou
+  liste normale), fait le fetch, et gère loading/error. Un useEffect relance
+  le fetch à chaque fois que searchTerm change.
+- PostList : affiche chaque post dans une carte (titre, extrait, tags,
+  réactions), affiche un message si la liste est vide, et le spinner
+  pendant le chargement.
+- PostSearch : champ de recherche qui envoie sa valeur au parent à chaque
+  frappe, avec un bouton pour l'effacer.
+
+Exemple : si on tape "love" dans la recherche, usePosts appelle
+https://dummyjson.com/posts/search?q=love et PostList affiche seulement
+les posts qui contiennent "love".
+
+Difficultés rencontrées :
+- Ne pas mélanger les résultats d'une recherche avec ceux de la précédente
+  → on repart de zéro (reset) à chaque nouveau filtre.
+- Le clic sur un tag ne doit pas aussi ouvrir le post → e.stopPropagation().
+
 [Ajoutez vos captures d'écran]
 ```
 
