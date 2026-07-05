@@ -73,7 +73,8 @@ Difficultés rencontrées :
   → on repart de zéro (reset) à chaque nouveau filtre.
 - Le clic sur un tag ne doit pas aussi ouvrir le post → e.stopPropagation().
 
-[Ajoutez vos captures d'écran]
+![Liste des posts](screenshots/ex1-liste-posts.png)
+![Recherche "love"](screenshots/ex1-recherche-love.png)
 ```
 
 ### Exercice 2 : Hooks Personnalisés
@@ -105,7 +106,8 @@ Difficultés rencontrées :
 - localStorage peut échouer (navigation privée) → accès entourés d'un
   try/catch.
 
-[Ajoutez vos captures d'écran]
+![Défilement infini désactivé, avant rechargement](screenshots/ex2-toggle-avant-reload.png)
+![Toujours désactivé après un rechargement de la page](screenshots/ex2-toggle-apres-reload.png)
 ```
 
 ### Exercice 3 : Optimisation et Context
@@ -140,7 +142,8 @@ Difficultés rencontrées :
 - Bien mettre useTheme() dans un composant enfant du ThemeProvider (créé un
   composant AppContent séparé de App pour que useTheme fonctionne).
 
-[Ajoutez vos captures d'écran]
+![Mode clair](screenshots/ex3-mode-clair.png)
+![Mode sombre](screenshots/ex3-mode-sombre.png)
 ```
 
 ### Exercice 4 : Fonctionnalités avancées
@@ -184,7 +187,9 @@ Difficultés rencontrées :
 - Le mode sombre ne couvrait au départ que le conteneur central → complété
   en appliquant aussi data-theme sur document.body (dans ThemeContext).
 
-[Ajoutez vos captures d'écran]
+![Détails d'un post en popup](screenshots/ex4-details-post.png)
+![Filtrage par le tag "history"](screenshots/ex4-filtre-tag.png)
+![Défilement infini : plus de posts chargés après avoir scrollé](screenshots/ex4-scroll-infini.png)
 ```
 
 ## Structure détaillée du projet
