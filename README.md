@@ -161,10 +161,10 @@ Difficultés rencontrées :
 
 #### Objectif : Ajouter des fonctionnalités de chargement et détail
 
-- [ ] 4.1 Implémenter le chargement infini des posts avec `useIntersectionObserver`
-- [ ] 4.2 Créer le composant `PostDetails` pour afficher les détails d'un post
-- [ ] 4.3 Ajouter la fonctionnalité de filtrage par tags
-- [ ] 4.4 Documenter votre solution ici
+- [x] 4.1 Implémenter le chargement infini des posts avec `useIntersectionObserver`
+- [x] 4.2 Créer le composant `PostDetails` pour afficher les détails d'un post
+- [x] 4.3 Ajouter la fonctionnalité de filtrage par tags
+- [x] 4.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 4 :_
 
